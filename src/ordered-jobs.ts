@@ -43,8 +43,27 @@ export class OrderedJobs {
     }
 
     private orderDependentJobs() {
+        let jobAdded: boolean = true;
+        while(jobAdded) {
+            let orderedJobsLength: number = this.orderedJobs.length;
+            this.addNextJobIfPossible();
+            if (this.noJobsAdded(orderedJobsLength)) jobAdded = false;
+        }
+    }
+
+    private addNextJobIfPossible() {
         this.dependentJobs.forEach((job: string) => {
-            this.orderedJobs += job[0];
+            if (this.jobNotOrderedAndDependencyOrdered(job)) {
+                this.orderedJobs += job[0];
+            }
         });
+    }
+
+    private jobNotOrderedAndDependencyOrdered(job: string) {
+        return this.orderedJobs.indexOf(job[0]) === -1 && this.orderedJobs.indexOf(job[5]) !== -1;
+    }
+
+    private noJobsAdded(orderedJobsLength: number) {
+        return orderedJobsLength === this.orderedJobs.length;
     }
 }

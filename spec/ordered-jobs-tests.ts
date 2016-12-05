@@ -18,4 +18,8 @@ describe("ordered jobs", () => {
     it("should order multiple jobs", () => {
         expect(orderedJobs.order("a => \nb => \nc => ")).toEqual("abc");
     });
+
+    it("should order multiple jobs with one dependency", () => {
+        expect(orderedJobs.order("a => \nb => c\nc => ")).toEqual("acb");
+    });
 });

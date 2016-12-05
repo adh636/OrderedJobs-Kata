@@ -1,6 +1,7 @@
 export class OrderedJobs {
 
     order(jobs: string) {
-        return "";
+        if (!jobs) return "";
+        return jobs[0];
     }
 }

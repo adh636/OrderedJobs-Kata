@@ -30,4 +30,8 @@ describe("ordered jobs", () => {
     it("should return error for self dependency", () => {
         expect(orderedJobs.order("a => \nb => \nc => c")).toEqual("jobs can’t depend on themselves");
     });
+
+    it("should return error for circular dependency", () => {
+        expect(orderedJobs.order("a => \nb => c\nc => f\nd => a\ne => b\nf => b")).toEqual("jobs can’t have circular dependencies");
+    });
 });

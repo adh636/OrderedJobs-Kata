@@ -26,4 +26,8 @@ describe("ordered jobs", () => {
     it("should order multiple jobs with multiple dependencies", () => {
         expect(orderedJobs.order("a => \nb => c\nc => f\nd => a\ne => b\nf => ")).toEqual("afcdbe");
     });
+
+    it("should return error for self dependency", () => {
+        expect(orderedJobs.order("a => \nb => \nc => c")).toEqual("jobs can’t depend on themselves");
+    });
 });

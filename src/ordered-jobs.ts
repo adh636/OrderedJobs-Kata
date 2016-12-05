@@ -9,6 +9,7 @@ export class OrderedJobs {
 
         this.splitAndFilterJobs(jobs);
         this.orderJobs();
+        this.checkForSelfDependency();
 
         return this.orderedJobs;
     }
@@ -65,5 +66,13 @@ export class OrderedJobs {
 
     private noJobsAdded(orderedJobsLength: number) {
         return orderedJobsLength === this.orderedJobs.length;
+    }
+
+    private checkForSelfDependency() {
+        this.jobArr.forEach((job: string) => {
+            if (job[0] === job[5]) {
+                this.orderedJobs = "jobs can’t depend on themselves";
+            }
+        });
     }
 }
